@@ -1,0 +1,9 @@
+env
+__pycache__
+
+data
+
+db
+config.yaml
+
+.chroma

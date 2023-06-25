@@ -1,0 +1,10 @@
+streamlit==1.23.1
+openai==0.27.8
+langchain==0.0.215
+chromadb==0.3.26
+tiktoken==0.4.0
+pypdf==3.9.0
+pymupdf==1.22.5
+unstructured==0.6.6
+streamlit-chat==0.1.1
+streamlit-authenticator==0.19.3
