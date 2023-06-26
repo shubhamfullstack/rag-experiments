@@ -9,8 +9,9 @@ from langchain.document_loaders import (
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
 from langchain.embeddings import OpenAIEmbeddings
+from configs.apikey import apikey
 
-openai_api_key = st.session_state.openai_api_key 
+os.environ["OPENAI_API_KEY"] = apikey  
 
 LOADER_MAPPING = {
     ".csv": (CSVLoader, {}),
@@ -33,7 +34,7 @@ def injest(pdf_path, ext, chunk_size):
     documents = getLoader(pdf_path, ext)
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=0)
     texts = text_splitter.split_documents(documents)
-    embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+    embeddings = OpenAIEmbeddings()
     vectordb = Chroma.from_documents(
         documents=texts,
         embedding=embeddings,

@@ -1,10 +1,6 @@
 import streamlit as st
 from utils.authenticate import authenticate
-
-# Initialize session state variables
-if 'openai_api_key' not in st.session_state:
-	st.session_state.openai_api_key = ""
-        
+   
 st.set_page_config(page_title="Fusion AI - Home", page_icon="🦜️🔗")
 
 auth  =  authenticate()

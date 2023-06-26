@@ -12,8 +12,10 @@ from langchain.chains import LLMChain
 from langchain.chains.question_answering import load_qa_chain
 from langchain.chains.conversational_retrieval.prompts import CONDENSE_QUESTION_PROMPT
 from utils.authenticate import authenticate
+from configs.apikey import apikey
+import os
 
-openai_api_key = st.session_state.openai_api_key 
+os.environ["OPENAI_API_KEY"] = apikey  
 
 def get_conversation_string():
     conversation_string = ""
@@ -30,13 +32,13 @@ def page_chat():
     if 'requests' not in st.session_state:
         st.session_state['requests'] = []
 
-    llm = ChatOpenAI(model_name="gpt-3.5-turbo", openai_api_key=openai_api_key)
+    llm = ChatOpenAI(model_name="gpt-3.5-turbo")
 
     if 'buffer_memory' not in st.session_state:
                 st.session_state.buffer_memory=ConversationBufferWindowMemory(k=3,return_messages=True)
 
 
-    embedding = OpenAIEmbeddings(openai_api_key=openai_api_key)
+    embedding = OpenAIEmbeddings()
 
     vector_store = Chroma(
         collection_name="fusion-ai",

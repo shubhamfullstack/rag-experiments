@@ -6,21 +6,16 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chains.summarize import load_summarize_chain
 from langchain.document_loaders import PyPDFLoader
 from utils.authenticate import authenticate
+from configs.apikey import apikey
 
-if 'openai_api_key' not in st.session_state:
-	st.session_state.openai_api_key = ""
-else:
-    openai_api_key = st.session_state.openai_api_key 
+os.environ["OPENAI_API_KEY"] = apikey  
 
 auth  =  authenticate()
 if auth[0]:
     st.subheader('Document Summary')
     source_doc = st.file_uploader("Upload Source Document", type="pdf")
     if st.button("Summarize"):
-        # Validate inputs
-        if not openai_api_key:
-            st.error("Please provide the missing API keys in Settings.")
-        elif not source_doc:
+        if not source_doc:
             st.error("Please provide the source document.")
         else:
             try:
@@ -33,11 +28,11 @@ if auth[0]:
                     os.remove(tmp_file.name)
 
                     # Create embeddings for the pages and insert into Chroma database
-                    embeddings=OpenAIEmbeddings(openai_api_key=openai_api_key)
+                    embeddings=OpenAIEmbeddings()
                     vectordb = Chroma.from_documents(pages, embeddings)
 
                     # Initialize the OpenAI module, load and run the summarize chain
-                    llm=OpenAI(temperature=0, openai_api_key=openai_api_key)
+                    llm=OpenAI(temperature=0)
                     chain = load_summarize_chain(llm, chain_type="stuff")
                     search = vectordb.similarity_search(" ")
                     print(search)

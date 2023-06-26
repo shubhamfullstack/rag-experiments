@@ -6,7 +6,7 @@ if auth[0]:
     st.subheader('Settings')
 
     # Get API keys
-    openai_api_key = st.text_input("OpenAI API Key", value=st.session_state.openai_api_key, type="password")
+    openai_api_key = st.text_input("OpenAI API Key", type="password")
     st.caption("*Required for all apps; get it [here](https://platform.openai.com/account/api-keys).*")
 
 

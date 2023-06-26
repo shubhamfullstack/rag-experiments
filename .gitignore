@@ -7,3 +7,5 @@ db
 config.yaml
 
 .chroma
+
+**/*/apikey.py

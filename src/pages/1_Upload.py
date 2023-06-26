@@ -5,8 +5,7 @@ from utils.store import create_vector_store
 from utils.authenticate import authenticate
 
 auth  =  authenticate()
-if auth[0]:
-    openai_api_key = st.session_state.openai_api_key 
+if auth[0]: 
     st.subheader('Upload Files')
     uploaded_file = st.file_uploader(
             "Choose .txt,.pdf,.csv,.doc file",
